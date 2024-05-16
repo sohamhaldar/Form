@@ -1,5 +1,7 @@
-
+'use client'
+import { useRouter } from 'next/navigation'
 export default function Home() {
+  const router = useRouter()
   return (
     <div class="bg-cover w-screen h-screen flex justify-center items-center relative " style={{ backgroundImage: 'url(/cool-background.png)' }}>
     <div className='absolute h-[95%] w-[90%] p-0 flex justify-center items-center' >
@@ -11,7 +13,7 @@ export default function Home() {
         </div>
       
         <div className="h-[50%] w-full flex justify-center items-center">
-            <button className=" bg-slate-50 rounded-lg p-4 border border-b-2 border-slate-800 tracking-wide font-bold text-slate-600">Create Now</button>
+            <button onClick={()=>router.push('/table')} className=" bg-slate-50 rounded-lg p-4 border border-b-2 border-slate-800 tracking-wide font-bold text-slate-600">Create Now</button>
         </div>
       </div>
     </div>

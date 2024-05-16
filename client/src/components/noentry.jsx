@@ -15,7 +15,7 @@ const NoEntry = () => {
   };
 
   return (
-    <div className='bg-cover w-[50%] h-[60%] bg-slate-100 flex flex-col justify-center items-center rounded-lg p-4'>
+    <div className='bg-cover w-[90%] h-[60%] bg-slate-100 flex flex-col justify-center items-center rounded-lg p-4'>
       <div className='flex justify-center w-full items-center m-4'>
         <h1 className='font-semibold tracking-wide text-2xl text-gray-500'>No Entries in Table</h1>
       </div>

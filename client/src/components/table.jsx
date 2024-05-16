@@ -1,7 +1,7 @@
 import NoEntry from "./noentry";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
-const TableComponent = ({ data, onUpdate, onDelete }) => {
+const TableComponent = ({ data, onUpdate, onDelete,setRows }) => {
   const [selectAll, setSelectAll] = useState(false);
   const [checkedRows, setCheckedRows] = useState({});
 
@@ -19,12 +19,26 @@ const TableComponent = ({ data, onUpdate, onDelete }) => {
   };
 
   const handleRowCheckChange = (id) => {
-    setCheckedRows((prevCheckedRows) => ({...prevCheckedRows, [id]:!prevCheckedRows[id] }));
+    setCheckedRows((prevCheckedRows) => {
+      const newValue =!prevCheckedRows[id];
+      if (newValue) {
+        const newRow = data.find((row) => row._id === id);
+        return {...prevCheckedRows, [id]: true };
+      } else {
+        const newCheckedRows = {...prevCheckedRows };
+        delete newCheckedRows[id];
+        return newCheckedRows;
+      }
+    });
   };
+  useEffect(() => {
+    console.log(checkedRows);
+    setRows(checkedRows);
+  }, [checkedRows]);
 
   return (
     <div className="relative m-3 overflow-x-auto rounded-lg sm:rounded-lg">
-      {data? (
+      {data.length != 0? (
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -47,7 +61,7 @@ const TableComponent = ({ data, onUpdate, onDelete }) => {
               <th scope="col" className="px-6 py-3">Phone Number</th>
               <th scope="col" className="px-6 py-3">Email</th>
               <th scope="col" className="px-6 py-3">Hobbies</th>
-              <th scope="col" className="px-6 py-3">Action</th>
+              
             </tr>
           </thead>
           <tbody>
@@ -80,20 +94,6 @@ const TableComponent = ({ data, onUpdate, onDelete }) => {
                 <td className="px-6 py-4">{row.phoneNumber}</td>
                 <td className="px-6 py-4">{row.email}</td>
                 <td className="px-6 py-4">{row.hobbies}</td>
-                <td className="px-6 py-4">
-                  <button
-                    onClick={() => onUpdate(row)}
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => onDelete(row)}
-                    className="ml-4 font-medium text-red-600 dark:text-red-500 hover:underline"
-                  >
-                    Delete
-                  </button>
-                </td>
               </tr>
             ))}
           </tbody>

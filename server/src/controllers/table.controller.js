@@ -29,6 +29,7 @@ const addEntry=async(req,res,next)=>{
 const deleteEntry=async(req,res,next)=>{
     try {
         const{ids}=req.body;
+        console.log(ids);
         const deletedTable=await Table.deleteMany({_id:{$in:ids}});
         console.log(deletedTable);
         res.status(200).json({
@@ -44,6 +45,7 @@ const deleteEntry=async(req,res,next)=>{
 const updateEntry=async(req,res,next)=>{
     try{
         const {id,update}=req.body;
+        console.log(id,update)
         const updatedTable=await Table.findByIdAndUpdate(id,update,{new:true});
         res.status(200).json({
             status:true,
